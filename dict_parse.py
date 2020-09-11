@@ -5,7 +5,6 @@ import random
 import ctypes
 
 word = input("Enter a word (enter 'q' to exit): ")
-
 while word != 'q':
     try:
         address = "https://www.godic.net/dicts/de/" + word
@@ -24,7 +23,7 @@ while word != 'q':
         cara = soup.find_all(class_="cara")
         if (cara != None):
             for i in range(len(cara)):
-                if (cara[i].text[0] != "【"): 
+                if (cara[i].text[0] != ""): 
                     print(cara[i].text)
             print("-"*10)
 
