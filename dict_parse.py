@@ -4,6 +4,8 @@ from bs4 import BeautifulSoup
 import random
 import ctypes
 
+file_object = open("german_parse.txt", "w+")
+
 word = input("Enter a word (enter 'q' to exit): ")
 while word != 'q':
     try:
@@ -12,31 +14,39 @@ while word != 'q':
         soup = BeautifulSoup(r.text, "lxml")
         
         print('\n')
+        
+        f = open("german_parse.txt", "w")
 
         # The word
         vocabulary = soup.find(class_="word")
         if (vocabulary != None):
             print(vocabulary.text)
             print("-"*10)
-
+            f.write(vocabulary.text)
+        f.close()
+        f = open("german_parse.txt", "a")
+        
         # Gender of the word
         cara = soup.find_all(class_="cara")
         if (cara != None):
             for i in range(len(cara)):
                 if (cara[i].text[0] != ""): 
                     print(cara[i].text)
+                    f.write(cara[i].text)
             print("-"*10)
 
         # variation of the Verb
         verb_variation = soup.find(class_="syno")
         if (verb_variation != None):
             print(verb_variation.text)
+            f.write(verb_variation.text)
             print("-"*10)
         
         # Chinese to German translation
         ch_2_ge = soup.find(class_="cd_explain")
         if(ch_2_ge != None):
             print(ch_2_ge.text.replace(')', ')\n'))
+            f.write(ch_2_ge.text.replace(')', ')\n'))
             print("-"*10)
 
         else:
